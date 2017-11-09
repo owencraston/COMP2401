@@ -4,6 +4,7 @@
 #include "stdlib.h"
 #include "struct.h"
 #include "populateRecords.h"
+#include "menu.h"
 #include "student.h"
 #include "employee.h"
 
@@ -67,12 +68,11 @@ int menu() {
 		printf("2, print all student. \n");
 		printf("3, search students using family name. \n");
 		printf("4, summary of data. \n");
-        printf("0, Quit");
-        printf("\n");
+		printf("0, Quit\n");
 
 		//get users input
 		printf("Input your pick:");
-		scanf("%d[^\n]\n", &choice);
+		scanf("%d", &choice);
 
 		//verify the response from the user
 		if (choice <= 4 && choice >= 0) {

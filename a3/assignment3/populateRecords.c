@@ -86,7 +86,6 @@ assumption:
 numPersons is <= the size of the array person
 */
 #define NUM_NAMES 7
-#define NAME_SIZE 15
 void populateRecords(struct person *person, int numPersons)
 {
 	int i = 0;
