@@ -45,23 +45,17 @@ void printAllStudents(struct person s[], int arraySize) {
 //search/print by family name
 void searchByFamilyName(struct person *s, int arraySize) {
     //get the family name from input
-    char lastName[20]; //create var to hold the users input
+    char lastName[16]; //create var to hold the users input
     printf("Input the last name of the person you wish to find:");//print message to users
-    scanf("%s[^\n]\n", lastName);//get input
+    scanf("%s\n", &lastName);//get input
     //create pointer
     struct person *stu;
     for (int i=0; i<arraySize; i++) {
         //increment the pointer
         stu = s + i;
         //check if the person is a student
-        if (s->emplyeeOrStudent == 1) {
-            //check if the student is the specified student
-            if(s->familyName == lastName) {
-                //print students info
+        if (s->emplyeeOrStudent == 1 && s->familyName == lastName) {
                 printStudent(*s);
-            } else {
-                printf("no student matched the specified name\n");
-            }
         }
     }
 

@@ -26,17 +26,12 @@ int main()
     while (running == 0) {
         //get the value from the menu function
         choice = menu();
+        unsigned int check;
 
         switch(choice){
             
             case 0:
-                printf("\n Are you sure you want to quit y/n");
-                char quit[1];
-                scanf("%s",quit );
-                if(quit == "y"){
-                    running = 0;
-                break;
-                }
+                running = quit();
                 break;
             case 1:
                 // call the printAllEmployees function
@@ -92,16 +87,16 @@ int menu() {
 
 void summary(struct person p[], int arraySize) {
     //create variables to store the summary values
-    float numRecords = 0;
-    float numStudents = 0;
-    float avgGpa = 0;
-    float avgNumCourses = 0;
-    float avgTuition = 0;
-    float numEmployees = 0;
-    float minLevel = 15; //set at max
-    float maxLevel = 0; //set at min
-    float avgYOS = 0;
-    float avgSalary = 0;
+    int numRecords = 0;
+    int numStudents = 0;
+    int totalGpa = 0;
+    int totalNumCourses = 0;
+    int totalTuition = 0;
+    int numEmployees = 0;
+    int minLevel = 15; //set at max
+    int maxLevel = 0; //set at min
+    int totalYOS = 0;
+    int totalSalary = 0;
 
 
     //iterate throught the array and get the values
@@ -114,11 +109,11 @@ void summary(struct person p[], int arraySize) {
             //increment the number of students
             numStudents ++;
             //gpa
-            avgGpa += p[i].student.gpa;
+            totalGpa += p[i].student.gpa;
             //average number of courses
-            avgNumCourses += p[i].student.numCourses;
+            totalNumCourses += p[i].student.numCourses;
             //average tuition
-            avgTuition += p[i].student.tuitionFees;
+            totalTuition += p[i].student.tuitionFees;
         } else if (p[i].emplyeeOrStudent == 0) {
             //calculate all the values related to the employee
             //increment the number of employees
@@ -134,20 +129,20 @@ void summary(struct person p[], int arraySize) {
                 minLevel = p[i].employee.level;
             }
             //increment the years of service
-            avgYOS += p[i].employee.yearsService;
+            totalYOS += p[i].employee.yearsService;
             //increment the salary
-            avgSalary += p[i].employee.salary;
+            totalSalary += p[i].employee.salary;
         }
     }
 
     //calculate averages
     //students
-    avgGpa = avgGpa/numStudents;
-    avgNumCourses = avgNumCourses/numStudents;
-    avgTuition = avgTuition/numStudents;
+    float avgGpa = avgGpa/numStudents;
+    float avgNumCourses = avgNumCourses/numStudents;
+    float avgTuition = avgTuition/numStudents;
     //employee
-    avgYOS = avgYOS/numEmployees;
-    avgSalary = avgSalary/numEmployees;
+    float avgYOS = avgYOS/numEmployees;
+    float avgSalary = avgSalary/numEmployees;
 
     //print the results
     printf("Output:\n");
@@ -166,26 +161,15 @@ void summary(struct person p[], int arraySize) {
 	printf(", Average Salary:  %.2f\n\n", avgSalary);
 }
 
-// int quit() {
-//     char yn[3]; //make var to store user input
-//     int quit = 0;
-//     while (quit = 0) {
-//         //inform the user
-//         printf("are you sure you want to quit the program? Type y/n to proceed\n");
-//         scanf("%s[^\n]\n", yn);//get input
-        
-//         //check input
-//         if (yn == "y") {
-//             printf("thank you.\n");
-//             quit = 0;
-//             return 1;
-//         } else if (yn == "n") {
-//             quit = 0;
-//             return 0;
-//         } else {
-//             // try again
-//             printf("invalid input. Try again\n");
-//         }
-//     }
-// }
+int quit() {
+    char yn[3]; //make var to store user input
+    printf("are you sure you want to quit the program? Type y/n to proceed\n");
+    scanf("%s", &yn); //get input
+
+    if(strcmp(yn, "y")== 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
 
