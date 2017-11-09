@@ -30,10 +30,12 @@ int main()
         switch(choice){
             
             case 0:
-                //stop the loop by setting the value of quit to true
-                checkQuit = quit();
-                if (checkQuit == 1) {
-                    running = 1;
+                printf("\n Are you sure you want to quit y/n");
+                char quit[1];
+                scanf("%s",quit );
+                if(quit == "y"){
+                    running = 0;
+                break;
                 }
                 break;
             case 1:
@@ -164,26 +166,26 @@ void summary(struct person p[], int arraySize) {
 	printf(", Average Salary:  %.2f\n\n", avgSalary);
 }
 
-int quit() {
-    char yn[3]; //make var to store user input
-    int quit = 0;
-    while (quit = 0) {
-        //inform the user
-        printf("are you sure you want to quit the program? Type y/n to proceed\n");
-        scanf("%s[^\n]\n", yn);//get input
+// int quit() {
+//     char yn[3]; //make var to store user input
+//     int quit = 0;
+//     while (quit = 0) {
+//         //inform the user
+//         printf("are you sure you want to quit the program? Type y/n to proceed\n");
+//         scanf("%s[^\n]\n", yn);//get input
         
-        //check input
-        if (yn == "y") {
-            printf("thank you.\n");
-            quit = 0;
-            return 1;
-        } else if (yn == "n") {
-            quit = 0;
-            return 0;
-        } else {
-            // try again
-            printf("invalid input. Try again\n");
-        }
-    }
-}
+//         //check input
+//         if (yn == "y") {
+//             printf("thank you.\n");
+//             quit = 0;
+//             return 1;
+//         } else if (yn == "n") {
+//             quit = 0;
+//             return 0;
+//         } else {
+//             // try again
+//             printf("invalid input. Try again\n");
+//         }
+//     }
+// }
 

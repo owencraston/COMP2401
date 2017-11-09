@@ -12,7 +12,6 @@ void printEmployee(struct person e) {
     //get the info from the person struct
     char *firstName = e.firstName;
     char *familyName = e.familyName;
-    //char *tele = e.telephone;
 
     //get the info from the employee
     int level = e.employee.level;
@@ -24,7 +23,7 @@ void printEmployee(struct person e) {
     //format fullname
     sprintf(fullName, "%s %s", firstName, familyName);
     //print extra info
-    printf("%-33s GPA: %2d, Courses: %2d, Tuition: %8.2f\n", fullName, yearsService, level, salary);
+    printf("%-33s Years: %2d, Level: %2d, Salary: %8.2f\n", fullName, yearsService, level, salary);
 }
 //print all employees function
 void printAllEmployees(struct person e[], int arraySize) {
