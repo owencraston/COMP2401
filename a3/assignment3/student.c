@@ -12,7 +12,7 @@ void printStudent(struct person s) {
     //get the info from the person struct
     char *firstName = s.firstName;
     char *familyName = s.familyName;
-    char *tele = s.telephone;
+    // char *tele = s.telephone;
 
     //get the info from the student
     int gpa = s.student.gpa;
@@ -21,12 +21,12 @@ void printStudent(struct person s) {
 
     //print the student info...
 
-    //set a var as the full name and print it
+    // //set a var as the full name and print it
     char fullName[33];
+    //format fullname
     sprintf(fullName, "%s %s", firstName, familyName);
-
     //print extra info
-    printf("Tele: %-10s,  GPA: %-10d, numCourses: %-10d, tuition: %-10f, \n", fullName, tele, gpa, numCourses, tuitionFees);
+    printf("%-33s GPA: %2d, Courses: %2d, Tuition: %8.2f\n", fullName, gpa, numCourses, tuitionFees);
 }
 //print all students function
 void printAllStudents(struct person s[], int arraySize) {
