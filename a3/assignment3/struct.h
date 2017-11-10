@@ -39,10 +39,12 @@ struct employee {
 */
 
 #define NAME_SIZE 16
+#define TELE_SIZE 11
 
 struct person {
     char *firstName[NAME_SIZE];
-	char *familyName[NAME_SIZE];
+    char *familyName[NAME_SIZE];
+    char *telephone[TELE_SIZE]; // this doesnt seem to be needed anywhere but i left it in
 	unsigned int emplyeeOrStudent:1;
     union {
         struct student student;
