@@ -20,20 +20,14 @@ int main()
 
     //switch statement for users options
     int choice;
-    int checkQuit;
     unsigned int running = 0;
 
     while (running == 0) {
         //get the value from the menu function
         choice = menu();
-        unsigned int check;
 
         switch(choice){
-            
-            case 0:
-                running = quit();
-                break;
-            case 1:
+                case 1:            
                 // call the printAllEmployees function
                 printAllEmployees(person, NUM_RECORDS);
                 break;
@@ -48,7 +42,9 @@ int main()
             case 4:
                 // call the summary function
                 summary(person, NUM_RECORDS);
-                break;
+                break;          
+            case 0:
+                running = quit();
         }
     }
         
@@ -69,7 +65,7 @@ int menu() {
 
 		//get users input
 		printf("Input your pick:");
-		scanf("%d[^\n]\n", &choice);
+		scanf("%d", &choice);
 
 		//verify the response from the user
 		if (choice <= 4 && choice >= 0) {

@@ -8,9 +8,10 @@
 */
 
 struct student {
-    unsigned int gpa:4;
-	unsigned int numCourses:6;
-	float tuitionFees;
+    float tuitionFees;
+    unsigned short numCourses:6;
+    unsigned short gpa:4;
+    
 };
 
 /* 1.2 create employee structure
@@ -21,9 +22,10 @@ struct student {
 */
 
 struct employee {
-    unsigned int level:4;
-	unsigned int yearsService:6;
-	float salary;
+   float salary;
+    unsigned short yearsService:6;
+    unsigned short level:4;
+   
 };
 
 /*
