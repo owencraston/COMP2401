@@ -166,14 +166,14 @@ PersonalInfo *searchByName(PersonalInfo *head, char *firstName) {
 		//return null since it is invalid
 		return NULL;
 	} else {
-		//iterate throught the list to find the end
+		//iterate throught the list to find the node with the corret name
 		PersonalInfo *temp = head;
 		while(temp != NULL) {
 			//find the node based on name
 			if (strcmp(temp->firstName, firstName)) {
 				return temp;
 			} else {
-				//set temp as them current node until it is the last node
+				//set temp node to next node
 				temp = temp->next;
 			}
 		}
@@ -195,10 +195,24 @@ NULL - if no node was found or list empty
 */
 
 
-PersonalInfo *searchById(PersonalInfo *head, unsigned int id)
-{
-	// add code 
-    
+PersonalInfo *searchById(PersonalInfo *head, unsigned int id) {
+    //check if the head is valid
+	if (head == NULL) {
+		//return null since it is invalid
+		return NULL;
+	} else {
+		//iterate throught the list to find the node with the correct id
+		PersonalInfo *temp = head;
+		while(temp != NULL) {
+			//find the node based on id
+			if (temp->id == id) {
+				return temp;
+			} else {
+				//set temp node as next node
+				temp = temp->next;
+			}
+		}
+	}
 }
 
 /***************************************************************/
