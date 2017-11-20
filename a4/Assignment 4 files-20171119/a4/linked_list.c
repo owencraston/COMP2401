@@ -285,12 +285,16 @@ int deleteLast(PersonalInfo **head, unsigned int *id,char *firstName, char *fami
 	// return since its invlaid 
 	return 1;
  } else {
+	 //print the head
+	 printNode(*head);
 	 PersonalInfo *temp = *head;
 	  while (temp->next->next != NULL) {
 		temp = temp->next;
 	}
 	// create a deleted var
 	PersonalInfo *deleted = temp->next;
+	//print the deleted record
+	printNode(deleted);
 	//set temp to the deleted next node
 	temp->next = deleted->next;
 	//free memory
@@ -323,12 +327,22 @@ return
 
 
 
-int deleteAfter(PersonalInfo *node, unsigned int *id,
-                char *firstName, char *familyName)
-
-{
-    // add code 
-
+int deleteAfter(PersonalInfo *node, unsigned int *id, char *firstName, char *familyName) {
+	// return 1 if node was not deleted (either input node is NULL or input node was the lastnode in the list
+	if (node == NULL || node->next == NULL) {
+		return 1;
+	} else {
+		//print the node that is beiong deleted
+		printNode(node->next);
+		//set a temp deleted variable
+		PersonalInfo *deleted = node->next;
+		//set next node to next next
+		node->next = deleted->next;
+		//free the memory
+		free(deleted);
+		//return 0 since it was valid
+		return 0;
+	}
 }
 
 /************************************************************************/
