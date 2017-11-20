@@ -529,16 +529,33 @@ input
 head - the head of the  list
 
 
-
+ 
 */
 
 
 
 
-void removeDuplicates(PersonalInfo *head)
-{
-	// add code 
-
-
+void removeDuplicates(PersonalInfo *head) {
+	//check if the head is valid
+	if (head != NULL) {
+		//create current node
+		PersonalInfo *current = head;
+		// create next node
+		PersonalInfo *next = NULL;
+		
+		//iterate the list
+		while (current->next != NULL) {
+			//compare the first names of current and current next 
+			if (strcmp(current->firstName, current->next->firstName)) {
+				// set next to the next next variable
+				next = current->next->next;
+				//free the allocated mem
+				free(current->next);
+			} else {
+				//move curernt to the next position
+				current = current->next;
+			}
+		}
+	}
 }
 
