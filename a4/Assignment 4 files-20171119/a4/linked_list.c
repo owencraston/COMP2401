@@ -160,10 +160,24 @@ NULL - if no node was found or list empty
 */
 
 
-PersonalInfo *searchByName(PersonalInfo *head, char *firstName)
-{
-	// add code 
-
+PersonalInfo *searchByName(PersonalInfo *head, char *firstName) { 
+	//check if the head is valid
+	if (head == NULL) {
+		//return null since it is invalid
+		return NULL;
+	} else {
+		//iterate throught the list to find the end
+		PersonalInfo *temp = head;
+		while(temp != NULL) {
+			//find the node based on name
+			if (strcmp(temp->firstName, firstName)) {
+				return temp;
+			} else {
+				//set temp as them current node until it is the last node
+				temp = temp->next;
+			}
+		}
+	}
 }
 
 /************************************************************************/
