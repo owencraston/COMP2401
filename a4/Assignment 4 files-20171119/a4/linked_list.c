@@ -448,7 +448,15 @@ head - the head of the list
 
 
 void printList(PersonalInfo *head) {
-
+	//create temp node
+	PersonalInfo *current= head;
+	//iterate through list
+	while (current != NULL) {
+		//print the current node
+		printNode(current);
+		//set current to the next node
+		current = current->next;
+	}
 }
 
 /************************************************************************/
