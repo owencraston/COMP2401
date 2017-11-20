@@ -47,12 +47,22 @@ NULL - if the operation was not successful
 
 */
 
-PersonalInfo *insertToList(PersonalInfo **head, unsigned int id, 
-        char *firstName, char *familyName)
-{
-	// add code
-    
+PersonalInfo *insertToList(PersonalInfo **head, unsigned int id, char *firstName, char *familyName){
+	// alocate memory
+	PersonalInfo *newNode = NULL;
+	newNode = (PersonalInfo *)malloc(sizeof(PersonalInfo));
+	// set the data
+	newNode->id = id; //set id
+	strcopy(newNode->firstName, firstName);
+	strcopy(newNode->familyName, familyName);
 
+	//point to the next node
+	newNode->next = *head;
+	//update head
+	*head = newNode;
+
+	//return pointer the new node
+	return &newNode;
 }
 
 
