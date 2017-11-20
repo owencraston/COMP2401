@@ -237,13 +237,23 @@ return
 */
 
 
-int deleteFromList(PersonalInfo **head, unsigned int *id,
-	char *firstName, char *familyName)
-
-{
-
-    // add code
-
+int deleteFromList(PersonalInfo **head) {
+	//check if head is valid 
+	if (*head == NULL) {
+		//return 1 since the head did not exists
+		return 1;
+	} else {
+		//print the head node
+		printNode(*head);
+		//set temp = head
+		PersonalInfo *temp = *head;
+		//update head to the next node
+		*head = temp->next;
+		//free memory
+		free(temp);
+		//return 0 since it worked
+		return 0;
+	}
 }
 
 
