@@ -367,11 +367,30 @@ return
 */
 
 
-int deleteNodeByName(PersonalInfo **head, char *firstName,
-	char *familyName, unsigned int *id)
-{
-	// add code 
-
+int deleteNodeByName(PersonalInfo **head, char *firstName, char *familyName, unsigned int *id) {
+	//check if head is valid
+	if (head == NULL) {
+		//return 1 since it is invalid
+		return 1;
+	} else {
+		PersonalInfo *temp = *head;
+		while (temp != NULL) {
+			if (strcmp(temp->next->firstName, firstName)) {
+				//print the node that is beiong deleted
+				printNode(temp->next);
+				//set a temp deleted variable
+				PersonalInfo *deleted = temp->next;
+				//set next node to next next
+				temp->next = deleted->next;
+				//free the memory
+				free(deleted);
+				//return 0 since it was valid
+				return 0;
+			} else {
+				temp = temp->next;
+			}
+		}
+	}
 
 }
 /************************************************************************/
