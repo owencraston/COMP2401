@@ -403,11 +403,21 @@ head - the head of the list
 */
 
 
-void deleteList(PersonalInfo **head)
-{
-	// add code 
-
-
+void deleteList(PersonalInfo **head) {
+	//create current and next pointers
+	PersonalInfo *current = NULL;
+	PersonalInfo *next = NULL;
+	//iterate through the list
+	while(current != NULL) {
+		//set next to the current nodes next node
+		next = current->next;
+		//free the current node memory
+		free(current);
+		//set current next
+		current = next;
+	}
+	//set head to null
+	*head = NULL;
 }
 
 
@@ -437,11 +447,7 @@ head - the head of the list
 */
 
 
-void printList(PersonalInfo *head)
-{
-	// add code 
-
-
+void printList(PersonalInfo *head) {
 
 }
 
