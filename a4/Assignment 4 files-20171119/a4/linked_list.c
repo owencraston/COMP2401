@@ -498,10 +498,21 @@ the number of nodes in the list that match the firstName
 */
 
 
-int countRecords(PersonalInfo *head, char *firstName)
-{
-	// add code 
-
+int countRecords(PersonalInfo *head, char *firstName) {
+	//create counter
+	int listSize = 0;
+	//create temp node
+	PersonalInfo *current= head;
+	//iterate through list
+	while (current != NULL) {
+		// check if the curernt name is equal to the passed in name
+		if (strcmp(current->firstName, firstName)) {
+			// increment counter by 1
+			listSize ++;
+		}
+		//set current to the next node
+		current = current->next;
+	}
 
 }
 
