@@ -237,7 +237,7 @@ return
 */
 
 
-int deleteFromList(PersonalInfo **head) {
+int deleteFromList(PersonalInfo **head, unsigned int *id,char *firstName, char *familyName) {
 	//check if head is valid 
 	if (*head == NULL) {
 		//return 1 since the head did not exists
@@ -279,13 +279,25 @@ return
 */
 
 
-int deleteLast(PersonalInfo **head, unsigned int *id,
-                char *firstName, char *familyName)
-
-{
-
-    // add code 
-
+int deleteLast(PersonalInfo **head, unsigned int *id,char *firstName, char *familyName) {
+ //check if the head is valid
+ if (head == NULL) {
+	// return since its invlaid 
+	return 1;
+ } else {
+	 PersonalInfo *temp = *head;
+	  while (temp->next->next != NULL) {
+		temp = temp->next;
+	}
+	// create a deleted var
+	PersonalInfo *deleted = temp->next;
+	//set temp to the deleted next node
+	temp->next = deleted->next;
+	//free memory
+	free(deleted);
+	//return 0 since it was valid
+	return 0;
+ }
 }
 
 

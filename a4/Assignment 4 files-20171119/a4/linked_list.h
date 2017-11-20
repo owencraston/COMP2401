@@ -61,7 +61,7 @@ PersonalInfo *searchById(PersonalInfo *head, unsigned int id);
 
 
 // Delete Functions
-int deleteFromList(PersonalInfo **head);
+int deleteFromList(PersonalInfo **head, unsigned int *id,char *firstName, char *familyName);
 
 int deleteLast(PersonalInfo **head, unsigned int *id,
 	char *firstName, char *familyName);
