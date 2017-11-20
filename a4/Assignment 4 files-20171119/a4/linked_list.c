@@ -471,12 +471,18 @@ the number of nodes in the list
 */
 
 
-int listSize(PersonalInfo *head)
-{
-	// add code 
-
-
-
+int listSize(PersonalInfo *head) {
+	//create counter
+	int listSize = 0;
+	//create temp node
+	PersonalInfo *current= head;
+	//iterate through list
+	while (current != NULL) {
+		// increment counter by 1
+		listSize ++;
+		//set current to the next node
+		current = current->next;
+	}
 }
 
 /************************************************************************/
