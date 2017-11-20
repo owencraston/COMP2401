@@ -128,10 +128,21 @@ NULL - if the operation was not successful
 */
 
 
-PersonalInfo *insertLast(PersonalInfo **head, unsigned int id, char *firstName, char *familyName)
-{
-	// add code
-
+PersonalInfo *insertLast(PersonalInfo **head, unsigned int id, char *firstName, char *familyName) {
+	//check if the head has atleast one elemeent
+	if (head == NULL){
+		//add to the front of the list since the head has no elements
+		return insertToList(head, id, firstName, familyName);
+	} else {
+		//iterate throught the list to find the end
+		PersonalInfo *temp = *head;
+		while(temp->next != NULL) {
+			//set temp as them current node until it is the last node
+			temp = temp->next;
+		}
+		//return new node at the end 
+		return insertAfter(temp, id, firstName, familyName);
+	}
 }
 
 
