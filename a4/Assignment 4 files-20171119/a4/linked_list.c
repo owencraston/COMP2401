@@ -61,8 +61,8 @@ PersonalInfo *insertToList(PersonalInfo **head, unsigned int id, char *firstName
 	//update head
 	*head = newNode;
 
-	//return pointer the new node
-	return &newNode;
+	//return newNode
+	return newNode;
 }
 
 
@@ -85,11 +85,29 @@ NULL - if the operation was not successful
 */
 
 
-PersonalInfo *insertAfter(PersonalInfo *node, unsigned int id, char *firstName, char *familyName)
-{
-	// add code 
+PersonalInfo *insertAfter(PersonalInfo *node, unsigned int id, char *firstName, char *familyName) {
+	//check if the passed node is valid
+	if (node == NULL) {
+		//return null since its invalid
+		return NULL;
+	} else {
+		//allocate  memory
+		PersonalInfo *newNode = NULL;
+		newNode = (PersonalInfo *)malloc(sizeof(PersonalInfo));
 
+		// set the data
+		newNode->id = id; //set id
+		strcopy(newNode->firstName, firstName); //set fist name
+		strcopy(newNode->familyName, familyName); //set family name 
 
+		// make mew node point after node
+		newNode->next = node->next;
+		//set node to point to the newStruct
+		node->next = newNode;
+
+		//return newNNode
+		return newNode;
+	}
 }
 
 /************************************************************************/
