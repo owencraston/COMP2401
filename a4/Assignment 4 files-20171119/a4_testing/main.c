@@ -20,18 +20,16 @@ int main(int argc, char* argv[])
 	struct personalInfo *p = NULL, *q = NULL;
 	int i;
     int rc = 0;
-	
+
 	for (i = 0; i < 20; i++) {
 	// add code for testing
 		populatePerson(firstName, familyName, &id);
 		insertToList(&empHead, id, firstName, familyName);
 	}
 
-	printList(empHead);
-
     printf("test SearchById \n");
-	q = p = searchById(empHead, 111);
-    if(p == NULL) { 
+	q = p = searchById(empHead, 136);
+    if(p == NULL) {
         printf("search by id failed \n");
     } else {
         printNode(p);
@@ -46,7 +44,7 @@ int main(int argc, char* argv[])
 	printList(empHead);
 
     // test delete after
-    
+
 	rc = deleteAfter(q, &id, firstName, familyName);
     printf("deleteAfter rc = %d \n",rc);
 	printList(empHead);
@@ -61,9 +59,12 @@ int main(int argc, char* argv[])
 		deleteNodeByName(&empHead, firstName, familyName, &id);
 	}
 
-	
+	int ccc = listSize(empHead);
 
-	bubbleSort(&empHead);
+	printf("%d\n", ccc);
+
+
+	//bubbleSort(&empHead);
 
 	printf("\n\n sorted list \n\n");
 	printList(empHead);
@@ -80,7 +81,7 @@ int main(int argc, char* argv[])
 }
 
 
-	
+
 
 /***************************************************************************/
 /* purpose: the function populate the personal info
@@ -104,23 +105,17 @@ void populatePerson(char *firstName, char *familyName, int *id)
 		srand(1557);
 		initRand ++;
 	}
-	// populate the first  name using a random i ndex to the first name array 
+	// populate the first  name using a random i ndex to the first name array
 	j = rand() % 5;
 	// copy the first name to the structure pointed by p using strcpy
 	strncpy(firstName, first[j], NAME_LENGTH);
 
-	// populate the first  name using a random i ndex to the first name array 
+	// populate the first  name using a random i ndex to the first name array
 	j = rand() % 5;
 	// copy the family name to the structure pointed by p using strcpy
 	strncpy(familyName, family[j], NAME_LENGTH);
 
-	// populate the student id using the random numnber in the range of 0-4096  
+	// populate the student id using the random numnber in the range of 0-4096
 	*id = rand() % 150;
 
 }
-
-
-
-
-
-
