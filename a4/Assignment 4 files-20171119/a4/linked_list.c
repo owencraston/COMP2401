@@ -53,8 +53,8 @@ PersonalInfo *insertToList(PersonalInfo **head, unsigned int id, char *firstName
 	newNode = (PersonalInfo *)malloc(sizeof(PersonalInfo));
 	// set the data
 	newNode->id = id; //set id
-	strcopy(newNode->firstName, firstName);
-	strcopy(newNode->familyName, familyName);
+	strcpy(newNode->firstName, firstName);
+	strcpy(newNode->familyName, familyName);
 
 	//point to the next node
 	newNode->next = *head;
@@ -97,8 +97,8 @@ PersonalInfo *insertAfter(PersonalInfo *node, unsigned int id, char *firstName, 
 
 		// set the data
 		newNode->id = id; //set id
-		strcopy(newNode->firstName, firstName); //set fist name
-		strcopy(newNode->familyName, familyName); //set family name 
+		strcpy(newNode->firstName, firstName); //set fist name
+		strcpy(newNode->familyName, familyName); //set family name 
 
 		// make mew node point after node
 		newNode->next = node->next;
@@ -129,20 +129,27 @@ NULL - if the operation was not successful
 
 
 PersonalInfo *insertLast(PersonalInfo **head, unsigned int id, char *firstName, char *familyName) {
-	//check if the head has atleast one elemeent
-	if (head == NULL){
-		//add to the front of the list since the head has no elements
-		return insertToList(head, id, firstName, familyName);
-	} else {
-		//iterate throught the list to find the end
-		PersonalInfo *temp = *head;
-		while(temp->next != NULL) {
-			//set temp as them current node until it is the last node
-			temp = temp->next;
-		}
-		//return new node at the end 
-		return insertAfter(temp, id, firstName, familyName);
-	}
+    //create variables
+    PersonalInfo* newNode = (PersonalInfo*) malloc(sizeof(PersonalInfo));//allocte mem
+    PersonalInfo* last = *head;
+
+    newNode->id = id;//set id
+    strcpy(newNode->firstName, firstName);//set first name
+    strcpy(newNode->familyName, familyName);//set last name
+    //check if the head is null
+    if (*head == NULL) {
+        *head = newNode;
+        return *head;
+    }
+    //iterate through the list and find the last node
+    while (last->next != NULL) {
+        //set last
+        last = last->next;
+    }
+    //iterate
+    last->next = newNode;
+
+    return newNode;
 }
 
 
@@ -170,7 +177,7 @@ PersonalInfo *searchByName(PersonalInfo *head, char *firstName) {
 		PersonalInfo *temp = head;
 		while(temp != NULL) {
 			//find the node based on name
-			if (strcmp(temp->firstName, firstName)) {
+			if (strcmp(temp->firstName, firstName)==0) {
 				return temp;
 			} else {
 				//set temp node to next node
@@ -245,6 +252,9 @@ int deleteFromList(PersonalInfo **head, unsigned int *id,char *firstName, char *
 	} else {
 		//print the head node
 		printNode(*head);
+        *id = (*head)->id;
+        strcpy(firstName, (*head)->firstName);
+        strcpy(familyName, (*head)->familyName);
 		//set temp = head
 		PersonalInfo *temp = *head;
 		//update head to the next node
@@ -280,31 +290,28 @@ return
 
 
 int deleteLast(PersonalInfo **head, unsigned int *id,char *firstName, char *familyName) {
- //check if the head is valid
- if (head == NULL) {
-	// return since its invlaid 
-	return 1;
- } else {
-	 //print the head
-	 printNode(*head);
-	 PersonalInfo *temp = *head;
-	  while (temp->next->next != NULL) {
-		temp = temp->next;
-	}
-	// create a deleted var
-	PersonalInfo *deleted = temp->next;
-	//print the deleted record
-	printNode(deleted);
-	//set temp to the deleted next node
-	temp->next = deleted->next;
-	//free memory
-	free(deleted);
-	//return 0 since it was valid
-	return 0;
- }
+    if (head == NULL) {
+        //return since its invlaid 
+        return 1;
+    } else {
+        //print the head
+        printNode(*head);
+        PersonalInfo *temp = *head;
+        while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+        // create a deleted var
+        PersonalInfo *deleted = temp->next;
+        //print the deleted record
+        printNode(deleted);
+        //set temp to the deleted next node
+        temp->next = deleted->next;
+        //free memory
+        free(deleted);
+        //return 0 since it was valid
+        return 0;
+    }
 }
-
-
 
 /************************************************************************/
 
@@ -333,12 +340,16 @@ int deleteAfter(PersonalInfo *node, unsigned int *id, char *firstName, char *fam
 		return 1;
 	} else {
 		//print the node that is beiong deleted
-		printNode(node->next);
-		//set a temp deleted variable
+		printNode(node->next);	
+        //set a temp deleted variable
 		PersonalInfo *deleted = node->next;
 		//set next node to next next
-		node->next = deleted->next;
-		//free the memory
+		node->next = deleted->next; 
+        //set new attributes
+        *id = node->id;
+        strcpy(firstName, node->firstName);
+        strcpy(familyName, node->familyName);
+        //free the mem
 		free(deleted);
 		//return 0 since it was valid
 		return 0;
@@ -374,8 +385,8 @@ int deleteNodeByName(PersonalInfo **head, char *firstName, char *familyName, uns
 		return 1;
 	} else {
 		PersonalInfo *temp = *head;
-		while (temp != NULL) {
-			if (strcmp(temp->next->firstName, firstName)) {
+		while (temp->next != NULL) {
+			if (strcmp(temp->next->firstName, firstName)==0) {
 				//print the node that is beiong deleted
 				printNode(temp->next);
 				//set a temp deleted variable
@@ -384,14 +395,13 @@ int deleteNodeByName(PersonalInfo **head, char *firstName, char *familyName, uns
 				temp->next = deleted->next;
 				//free the memory
 				free(deleted);
-				//return 0 since it was valid
 				return 0;
 			} else {
 				temp = temp->next;
 			}
 		}
 	}
-
+return 1;
 }
 /************************************************************************/
 /*
@@ -472,17 +482,14 @@ the number of nodes in the list
 
 
 int listSize(PersonalInfo *head) {
-	//create counter
-	int listSize = 0;
-	//create temp node
-	PersonalInfo *current= head;
-	//iterate through list
-	while (current != NULL) {
-		// increment counter by 1
-		listSize ++;
-		//set current to the next node
-		current = current->next;
-	}
+int count = 0;//create counter
+//iterate through the list
+while (head != NULL) {
+    count++;//increment counter
+    head = head->next;//move to next node
+}
+//return value
+return count;
 }
 
 /************************************************************************/
@@ -499,21 +506,19 @@ the number of nodes in the list that match the firstName
 
 
 int countRecords(PersonalInfo *head, char *firstName) {
-	//create counter
-	int listSize = 0;
-	//create temp node
-	PersonalInfo *current= head;
-	//iterate through list
-	while (current != NULL) {
-		// check if the curernt name is equal to the passed in name
-		if (strcmp(current->firstName, firstName)) {
-			// increment counter by 1
-			listSize ++;
-		}
-		//set current to the next node
-		current = current->next;
-	}
 
+int count = 0;//create counter
+//iterate through the list
+while (head != NULL) {
+    //compare strings
+    if (strcmp(head->firstName, firstName) == 0) {
+            count++;//iterate ount
+    }
+    //move to next node
+    head = head->next;
+}
+//return value
+return count;
 }
 
 
@@ -546,7 +551,7 @@ void removeDuplicates(PersonalInfo *head) {
 		//iterate the list
 		while (current->next != NULL) {
 			//compare the first names of current and current next 
-			if (strcmp(current->firstName, current->next->firstName)) {
+			if (strcmp(current->firstName, current->next->firstName)== 0) {
 				// set next to the next next variable
 				next = current->next->next;
 				//free the allocated mem
