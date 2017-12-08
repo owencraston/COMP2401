@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
   }
   else{
    // The file doesn't exist
-   printf("%s is not in the folder\n", argv[1]);
+   printf("%s not found in folder \n", argv[1]);
   }
   return 0;
 }
