@@ -27,17 +27,19 @@ int main(int argc, char *argv[]) {
 
     //get file size
     size = filesize(fp);
-
+    //print size
     printf("size: %d \n", size);
 
+    //create number array
     int numbers[size];
-
+    //allocate numbers array t file
     fread(numbers, sizeof(int), size, fp);
-
+    //call spawn and do all the things
     spawn(numbers, size);
 
   }
   else {
+    //oops
     printf("File %s does not exist \n", argv[1]);
   }
   //return 0
@@ -89,39 +91,38 @@ void spawn(int arr[], int len) {
   //send processes
   for (int i=0; i<len; i++) {
     //check if the pid is less than 0 to check if it is a parent
-    if ((ids[i] = fork()) < 0) {
-        //
-    } else if (ids[i] == 0) {
-        char integer_string[200];
-        sprintf(integer_string, "%d \n", arr[i]);
-        morph(integer_string);
+    if (((ids[i] = fork()) >= 0) && (ids[i] == 0)) {
+      char integer_string[200];
+      //transfer value from array to integerString
+      sprintf(integer_string, "%d \n", arr[i]);
+      // morpch process into isPrime
+      morph(integer_string);
     }
   }
-
-
+  //keep looping untill all process have been completed
   while (len > count) {
     status = 0;
-    
     cur_id = waitpid(-1, &status, 0);
-
     int output = WIFSIGNALED(status);
-
+    //check if output is 0, if so exit
     if (output != 0) {
       return;
     } 
 
-
+    // iterate through array
     for (int i=0; i<len; i++) {
+      //check if ids match and outpt is 0
       if (cur_id == ids[i] && output == 0) {
-          //printf("test \n");
+          //add to reponse array
         response[i] = status;
       }
     }
+    //increment counter
     count++;
   }
-
+  //iterate through response
   for (int i=0; i<len; i++) {
-    //printf("r: %d\n", response[i]);
+    // if response has status 256...print
     if (response[i] == 256) {
       printf("prime number: %d \n", arr[i]);
     }
