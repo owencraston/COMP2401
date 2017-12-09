@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 //morph function
 int morph(char *num){
   char *arg = "./isPrime";
-  char *params[2] = { "isPrime", num };
+  char *params[3] = { "isPrime", num };
   execvp(arg, params);
   return -1;
 }

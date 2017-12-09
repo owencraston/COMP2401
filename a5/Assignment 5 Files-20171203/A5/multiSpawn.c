@@ -3,13 +3,12 @@
 #include <string.h>
 #include <unistd.h>
 #include "multiSpawn.h"
+#include "stdio.h"
 
 
 int main(int argc, char *argv[]) {
-  FILE *file;
-  char str[10];
   int code = 0;
-  int integer;
+  int size;
 
   //check if the file is given
   if (argc < 2) {
@@ -20,33 +19,22 @@ int main(int argc, char *argv[]) {
   // check if file exists
   code = fexists(argv[1]);
   //if file exists 
-  if (code != 0) {
-    char integer_string[200];
-    FILE *fp = NULL;
+  if (argv[1] != NULL) {
+
+    FILE *fp;
     //open file
-    fp = fopen(argv[1], "rb+");
-    //read file
-    fread(&integer, sizeof(int), 1, fp);
-    //print m
-    sprintf(integer_string, "%d", integer);
+    fp = fopen(argv[1], "rb");
 
-    int process_id;
-    int status;
-    int output;
-    process_id = fork();
-    //spawn child
-    if (process_id == 0) {
-      morph(integer_string);
-    }
+    //get file size
+    size = filesize(fp);
 
-    //spawn parent
-    else {
-      if (wait(&status) >= 0) {
-        output = WIFEXITED(status);
-        if (output == 1) printf("%s is prime \n", integer_string);
-        else printf("%s is not a prime \n", integer_string);
-      }
-    }
+    printf("size: %d \n", size);
+
+    int numbers[size];
+
+    fread(numbers, sizeof(int), size, fp);
+
+    spawn(numbers, size);
 
   }
   else {
@@ -56,10 +44,19 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+//create function to get size of file
+int filesize(FILE *fp) {
+  int start = ftell(fp);
+  fseek(fp, 0L, SEEK_END);
+  int size = ftell(fp);
+  fseek(fp, start, SEEK_SET);
+  return size / sizeof(int);
+}
+
 //morph function
 int morph(char *num){
   char *arg = "./isPrime";
-  char *params[2] = { "isPrime", num };
+  char *params[3] = { "isPrime", num };
   execvp(arg, params);
   return -1;
 }
@@ -77,4 +74,58 @@ int fexists(char *fileName) {
     code = 1;
   }
   return(code);
+}
+
+// create function for logic
+void spawn(int arr[], int len) {
+  //variables 
+  pid_t cur_id;
+  pid_t ids[len];
+  int response[len];
+  int status = 0;
+  int count = 0;
+  int output;
+
+  //send processes
+  for (int i=0; i<len; i++) {
+    //check if the pid is less than 0 to check if it is a parent
+    if ((ids[i] = fork()) < 0) {
+        //
+    } else if (ids[i] == 0) {
+        char integer_string[200];
+        sprintf(integer_string, "%d \n", arr[i]);
+        morph(integer_string);
+    }
+  }
+
+
+  while (len > count) {
+    status = 0;
+    
+    cur_id = waitpid(-1, &status, 0);
+
+    int output = WIFSIGNALED(status);
+
+    if (output != 0) {
+      return;
+    } 
+
+
+    for (int i=0; i<len; i++) {
+      if (cur_id == ids[i] && output == 0) {
+          //printf("test \n");
+        response[i] = status;
+      }
+    }
+    count++;
+  }
+
+  for (int i=0; i<len; i++) {
+    //printf("r: %d\n", response[i]);
+    if (response[i] == 256) {
+      printf("prime number: %d \n", arr[i]);
+    }
+  }
+
+
 }

@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     fp = fopen(argv[1], "rb+");
     //read file
     fread(&integer, sizeof(int), 1, fp);
-    //print 
+    //print m
     sprintf(integer_string, "%d", integer);
 
     int process_id;
@@ -56,18 +56,10 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int filesize(FILE *fp) {
-  int start = ftell(fp);
-  fseek(fp, 0L, SEEK_END);
-  int size = ftell(fp);
-  fseek(fp, start, SEEK_SET);
-  return size / sizeof(int);
-}
-
 //morph function
 int morph(char *num){
   char *arg = "./isPrime";
-  char *params[2] = { "isPrime", num };
+  char *params[3] = { "isPrime", num };
   execvp(arg, params);
   return -1;
 }
