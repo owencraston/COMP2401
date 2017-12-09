@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "singleSpawn.h"
+#include "multiSpawn.h"
 
 
 int main(int argc, char *argv[]) {
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     fp = fopen(argv[1], "rb+");
     //read file
     fread(&integer, sizeof(int), 1, fp);
-    //print 
+    //print m
     sprintf(integer_string, "%d", integer);
 
     int process_id;
