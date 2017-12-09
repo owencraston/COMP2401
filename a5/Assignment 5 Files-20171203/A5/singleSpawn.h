@@ -1,5 +1,5 @@
-#ifndef _is_prime_h
-#define _is_prime_h
+#ifndef _single_spawn_h
+#define _single_spawn_h
 
 int morph(char *number);
 int fexists(char *fileName);
