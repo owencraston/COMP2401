@@ -70,6 +70,6 @@ int isPrime(unsigned int number)
 			return(0);
 		}
 	}
-    printf("%d is a prime number\n",number);
+    //printf("%d is a prime number\n",number);
 	return(1);
 }
